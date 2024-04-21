@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        body {
+            background-color: #efb8b8; 
+        }
+        .todo-item.placeholder {
+            font-size: 1.5em; 
+            color: #131212; 
+        }
+        .todo-list-container {
+            max-height: 300px;
+            overflow-y: auto; 
+        }
+        .delete-symbol, .edit-symbol {
+            cursor: pointer;
+            margin-left: 5px;
+            font-size: 16px;
+            color: black; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="highlight-title">To-Do List</h1>
+        <div class="add-todo">
+            <input type="text" id="new-todo" placeholder="Add new item">
+            <button onclick="addTodo()">Add</button>
+        </div>
+        <div class="todo-list-container">
+            <ul class="todo-list" id="todo-list">
+               
+                <!-- Blank list items for user input -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function addTodo() {
+            var input = document.getElementById("new-todo");
+            var value = input.value.trim();
+            if (value !== "") {
+                var list = document.getElementById("todo-list");
+                var listItem = document.createElement("li");
+                listItem.className = "todo-item placeholder"; 
+                listItem.innerHTML = '<input type="checkbox" onclick="completeTask(this)"><label>' + value + '</label><span class="delete-symbol" onclick="deleteTask(this)">❌</span><span class="edit-symbol" onclick="editTask(this)">✎</span>';
+                list.insertBefore(listItem, list.firstChild); 
+                input.value = "";
+                checkScroll(); 
+                input.scrollIntoView(); 
+            }
+        }
+
+        function completeTask(checkbox) {
+            var listItem = checkbox.parentNode;
+            var list = document.getElementById("todo-list");
+            var firstCompletedItem = null;
+            var completedTasks = document.querySelectorAll(".completed");
+            
+            // Move completed task to the bottom of the list
+            list.appendChild(listItem);
+            listItem.classList.toggle("completed");
+
+            // Move completed tasks to the bottom, keeping the order of newly added tasks intact
+            for (var i = 0; i < completedTasks.length; i++) {
+                if (firstCompletedItem === null) {
+                    firstCompletedItem = completedTasks[i];
+                }
+                list.appendChild(completedTasks[i]);
+            }
+            
+            // Move the newly added tasks above completed tasks
+            if (firstCompletedItem !== null) {
+                list.insertBefore(listItem, firstCompletedItem);
+            }
+            checkScroll();
+        }
+
+        function deleteTask(span) {
+            var listItem = span.parentNode;
+            var list = document.getElementById("todo-list");
+            list.removeChild(listItem);
+            checkScroll(); 
+        }
+
+        function editTask(span) {
+            var listItem = span.parentNode;
+            var label = listItem.querySelector('label');
+            var text = label.innerText;
+            var newText = prompt("Edit task:", text);
+            if (newText !== null && newText.trim() !== "") {
+                label.innerText = newText.trim();
+            }
+        }
+
+        function createInputField(item) {
+            if (!item.querySelector('input[type="text"]')) {
+                var input = document.createElement("input");
+                input.type = "text";
+                input.placeholder = "Enter your task";
+                item.innerHTML = ""; 
+                item.appendChild(input); 
+                input.focus(); 
+            }
+        }
+
+        function checkScroll() {
+            var listContainer = document.querySelector('.todo-list-container');
+            var list = document.getElementById('todo-list');
+            var itemsCount = list.childElementCount;
+            if (itemsCount > 1) {
+                listContainer.style.overflowY = 'scroll'; 
+            } else {
+                listContainer.style.overflowY = 'auto'; 
+            }
+        }
+
+    </script>
+</body>
+</html>

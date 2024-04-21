@@ -1,0 +1,114 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #efb8b8; 
+    background: linear-gradient(45deg, #f9d5d5 0%, #efb8b8 100%); 
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 50%; 
+    max-width: 800px; 
+    margin: 0 auto; 
+    padding: 20px;
+    background-color: rgb(146, 210, 215); /* Pastel yellow */
+    background: linear-gradient(45deg, #75d2cc 0%,   rgb(142, 221, 215)100%); 
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    text-align: center;
+    color: #333; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); 
+}
+
+.todo-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.todo-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.todo-item input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.todo-item label {
+    flex: 1;
+    word-break: break-all;
+    color: #040404; 
+}
+
+.add-todo {
+    display: flex;
+    margin-top: 20px;
+}
+
+.add-todo input[type="text"] {
+    flex: 1;
+    padding: 5px;
+    margin-right: 10px;
+}
+
+.add-todo button {
+    padding: 8px 16px; 
+    background-color: #1c87de; 
+    color:white ;
+    border: 2px solid #B0E0E6; 
+    border-radius: 5px; 
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s; 
+}
+
+.add-todo button:hover {
+    background-color: #87CEEB; 
+    border-color: #87CEEB; 
+}
+
+.todo-item.completed label {
+    text-decoration: line-through;
+    color: #777; 
+}
+
+.todo-list-container {
+    max-height: 300px; 
+    overflow-y: auto; 
+}
+
+/* Styling scrollbar for WebKit-based browsers */
+.todo-list-container::-webkit-scrollbar {
+    width: 6px; 
+}
+
+.todo-list-container::-webkit-scrollbar-track {
+    background: #E6E6FA; 
+}
+
+.todo-list-container::-webkit-scrollbar-thumb {
+    background: #555; 
+    border-radius: 4px; 
+}
+
+.todo-list-container::-webkit-scrollbar-thumb:hover {
+    background-color: #333; 
+}
+
+.todo-item.placeholder label[contenteditable="true"]:focus {
+    outline: none;
+}
+
+.todo-item.placeholder .edit-button {
+    display: none;
+}
